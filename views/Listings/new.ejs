@@ -1,0 +1,178 @@
+<% layout("layouts/boilerPlate.ejs") %>
+
+  <body>
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-12">
+
+          <div class="card shadow-sm p-4">
+            <h3 class="mb-4 text-center">Create a New Listing</h3>
+
+            <form action="/listings" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
+
+              <!-- Title -->
+              <div class="mb-3">
+                <label class="form-label">Title</label>
+                <input type="text" class="form-control" name="listing[title]" required>
+                <div class="invalid-feedback">
+                  Please enter a title.
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" name="listing[description]" rows="4" required></textarea>
+                <div class="invalid-feedback">
+                  Please enter a description.
+                </div>
+              </div>
+
+              <!-- Image Upload -->
+              <div class="mb-3">
+                <label class="form-label">Upload Image</label>
+                <input type="file" class="form-control" name="listing[image]" required />
+              </div>
+
+              <!-- Price -->
+              <div class="mb-3">
+                <label class="form-label">Price (₹ / night)</label>
+                <input type="number" class="form-control" name="listing[price]" min="1" required>
+                <div class="invalid-feedback">
+                  Please enter a valid price.
+                </div>
+              </div>
+
+              <!-- Country & Location (Same Line) -->
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Country</label>
+                  <input type="text" class="form-control" name="listing[country]" required>
+                  <div class="invalid-feedback">
+                    Country is required.
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Location</label>
+                  <input type="text" class="form-control" name="listing[location]" required>
+                  <div class="invalid-feedback">
+                    Location is required.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Category Selection -->
+              <div class="mb-4">
+                <label class="form-label">Choose a Category</label>
+                <div class="category-grid">
+
+                  <label class="category-option">
+                    <input type="radio" name="listing[category]" value="Home">
+                    <div class="category-content">
+                      <i class="fa-solid fa-house"></i>
+                      <span>Home</span>
+                    </div>
+                  </label>
+
+                  <label class="category-option">
+                    <input type="radio" name="listing[category]" value="Rooms" required>
+                    <div class="category-content">
+                      <i class="fa-solid fa-bed"></i>
+                      <span>Rooms</span>
+                    </div>
+                  </label>
+
+                  <label class="category-option">
+                    <input type="radio" name="listing[category]" value="Iconic Cities">
+                    <div class="category-content">
+                      <i class="fa-solid fa-mountain-city"></i>
+                      <span>Iconic Cities</span>
+                    </div>
+                  </label>
+
+                  <label class="category-option">
+                    <input type="radio" name="listing[category]" value="Mountains">
+                    <div class="category-content">
+                      <i class="fa-solid fa-mountain"></i>
+                      <span>Mountains</span>
+                    </div>
+                  </label>
+
+                  <label class="category-option">
+                    <input type="radio" name="listing[category]" value="Castles">
+                    <div class="category-content">
+                      <i class="fa-brands fa-fort-awesome"></i>
+                      <span>Castles</span>
+                    </div>
+                  </label>
+
+                  <label class="category-option">
+                    <input type="radio" name="listing[category]" value="Amazing Pools">
+                    <div class="category-content">
+                      <i class="fa-solid fa-person-swimming"></i>
+                      <span>Amazing Pools</span>
+                    </div>
+                  </label>
+
+                  <label class="category-option">
+                    <input type="radio" name="listing[category]" value="Camping">
+                    <div class="category-content">
+                      <i class="fa-solid fa-campground"></i>
+                      <span>Camping</span>
+                    </div>
+                  </label>
+
+                  <label class="category-option">
+                    <input type="radio" name="listing[category]" value="Farms">
+                    <div class="category-content">
+                      <i class="fa-solid fa-cow"></i>
+                      <span>Farms</span>
+                    </div>
+                  </label>
+
+                  <label class="category-option">
+                    <input type="radio" name="listing[category]" value="Arctic">
+                    <div class="category-content">
+                      <i class="fa-regular fa-snowflake"></i>
+                      <span>Arctic</span>
+                    </div>
+                  </label>
+
+                  <label class="category-option">
+                    <input type="radio" name="listing[category]" value="Domes">
+                    <div class="category-content">
+                      <i class="fa-solid fa-igloo"></i>
+                      <span>Domes</span>
+                    </div>
+                  </label>
+
+                  <label class="category-option">
+                    <input type="radio" name="listing[category]" value="Boats">
+                    <div class="category-content">
+                      <i class="fa-solid fa-ship"></i>
+                      <span>Boats</span>
+                    </div>
+                  </label>
+
+
+                </div>
+                <div class="invalid-feedback d-block">
+                  Please select a category.
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="d-grid mt-3">
+                <button class="btn custom-btn" type="submit">
+                  Add Listing
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </body>

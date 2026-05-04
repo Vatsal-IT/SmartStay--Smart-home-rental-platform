@@ -1,0 +1,563 @@
+/* Navbar Styling */
+.navbar {
+    height: 5rem;
+    background-color: #fff !important;
+}
+
+.fa-compass {
+    color: #fe424d;
+    font-size: 2rem;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-link {
+    color: #222 !important;
+    font-weight: 500;
+}
+
+/* Search Bar */
+.search-bar {
+    border: 1px solid #ddd;
+    border-radius: 40px;
+    padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    transition: box-shadow 0.2s;
+    width: 24rem;
+    /* Adjust width as needed */
+}
+
+.search-bar:hover {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    font-size: 0.9rem;
+    color: #222;
+    width: 100%;
+    font-weight: 500;
+}
+
+.search-btn {
+    background-color: #fe424d;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.search-btn:hover {
+    background-color: #e63946;
+}
+
+/* Price Range Filter (Amazon-style) */
+.price-range-divider {
+    width: 1px;
+    height: 2rem;
+    background: #ddd;
+    margin: 0 0.5rem;
+    flex-shrink: 0;
+}
+
+.price-range-label {
+    font-size: 0.8rem;
+    color: #666;
+    font-weight: 600;
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+    align-self: center;
+}
+
+.price-range-filter {
+    padding: 0.4rem 0.8rem;
+}
+
+.price-range-filter p {
+    margin: 0;
+    font-size: 0.8rem;
+}
+
+/* User Menu Dropdown */
+.user-menu-btn {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    padding: 0.3rem 0.3rem 0.3rem 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: box-shadow 0.2s;
+}
+
+.user-menu-btn:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+    background-color: #fff;
+}
+
+.user-icon-container {
+    background-color: #717171;
+    color: #fff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.dropdown-menu {
+    border-radius: 12px;
+    padding: 0.5rem 0;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    border: none;
+    width: 240px;
+}
+
+.dropdown-item {
+    padding: 0.7rem 1rem;
+    font-weight: 400;
+    color: #222;
+}
+
+.dropdown-item:hover {
+    background-color: #f7f7f7;
+}
+
+
+/* ===================== CITY SECTIONS (Airbnb-style) ===================== */
+
+.city-sections-wrapper {
+    margin-top: 1.5rem;
+}
+
+/* Section header row */
+.city-section {
+    margin-bottom: 2.5rem;
+}
+
+.city-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.city-section-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #222;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.city-emoji {
+    font-size: 1.2rem;
+}
+
+.city-see-all {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #222;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.18s;
+    white-space: nowrap;
+}
+
+.city-see-all:hover {
+    color: #fe424d;
+}
+
+/* Scroll arrow buttons */
+.city-scroll-btns {
+    display: flex;
+    gap: 0.4rem;
+    flex-shrink: 0;
+}
+
+.scroll-arrow {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background: #fff;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow 0.18s, opacity 0.18s;
+    color: #222;
+}
+
+.scroll-arrow:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+
+/* Horizontal scroll track */
+.city-cards-track {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding-bottom: 0.5rem;
+}
+
+.city-cards-track::-webkit-scrollbar {
+    display: none;
+}
+
+/* Individual card link wrapper */
+.city-card-link {
+    text-decoration: none;
+    color: inherit;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    width: 220px;
+    transition: transform 0.2s ease;
+}
+
+.city-card-link:hover {
+    transform: translateY(-4px);
+}
+
+/* Card */
+.city-card {
+    border-radius: 14px;
+    overflow: hidden;
+    background: #fff;
+}
+
+/* Image wrapper */
+.city-card-img-wrap {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    background: #eee;
+}
+
+.city-card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+    display: block;
+}
+
+.city-card-link:hover .city-card-img-wrap img {
+    transform: scale(1.07);
+}
+
+/* Guest favourite badge */
+.guest-fav-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #fff;
+    color: #222;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    z-index: 2;
+    white-space: nowrap;
+}
+
+/* Heart / wishlist button */
+.city-card-heart {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+    padding: 0;
+    width: 28px;
+    height: 28px;
+}
+
+.city-card-heart svg {
+    width: 28px;
+    height: 28px;
+    fill: rgba(0,0,0,0.35);
+    stroke: #fff;
+    stroke-width: 2;
+    transition: fill 0.2s;
+}
+
+.city-card-heart.saved svg,
+.city-card-heart:hover svg {
+    fill: #fe424d;
+    stroke: #fe424d;
+}
+
+/* Card body */
+.city-card-body {
+    padding: 0.6rem 0.2rem 0;
+}
+
+.city-card-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #222;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.city-card-location {
+    font-size: 0.8rem;
+    color: #717171;
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.city-card-price {
+    font-size: 0.85rem;
+    color: #222;
+    margin-top: 2px;
+}
+
+/* All listings divider */
+.all-listings-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0 0.5rem;
+    color: #717171;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.all-listings-divider hr {
+    flex: 1;
+    border-color: #ddd;
+    margin: 0;
+}
+
+/* Listing location line */
+.listing-location {
+    font-size: 0.85rem;
+    color: #717171;
+}
+
+.listing-location i {
+    color: #fe424d;
+    font-size: 0.8rem;
+}
+
+/* No listings message */
+.no-listings-msg {
+    text-align: center;
+    padding: 4rem 1rem;
+    color: #717171;
+}
+
+.no-listings-msg i {
+    font-size: 3rem;
+    color: #ddd;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.no-listings-msg p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Tax Toggle Switch */
+.tax-toggle {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    height: 3rem;
+    padding: 0.7rem 1rem;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    min-width: 240px;
+    white-space: nowrap;
+}
+
+/* Footer */
+.f-info {
+    text-align: center;
+    height: 4rem;
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #eee;
+    margin-top: 2rem;
+    color: #555;
+    gap: 1rem;
+    font-size: 0.9rem;
+}
+
+.f-info-links a {
+    text-decoration: none;
+    color: #555;
+    margin: 0 0.5rem;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+    color: #222;
+}
+
+.f-info-socials i {
+    font-size: 1.1rem;
+    margin: 0 0.5rem;
+    color: #555;
+}
+
+.f-info-socials i:hover {
+    color: #222;
+}
+
+/* cards */
+/* Listing Cards */
+.card {
+    border: none;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: #ffffff;
+}
+
+/* Hover effect */
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Image styling */
+.card-img-top {
+    height: 280px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+/* Slight zoom on hover */
+.card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+/* Card body */
+.card-body {
+    padding: 1rem 1.2rem;
+}
+
+/* Title */
+.card-text strong {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #222;
+}
+
+/* Price */
+.card-text {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* Price highlight */
+.card-text span {
+    font-weight: 600;
+    color: #000;
+}
+
+/* Remove blue outline on click */
+.card:focus {
+    outline: none;
+}
+
+/* button */
+.custom-btn {
+    background-color: #fe424d !important;
+    color: #fff;
+    border: none;
+}
+
+
+/* Category Filters in Forms */
+.category-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.category-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.category-option:hover {
+    opacity: 1;
+}
+
+.category-option input {
+    display: none;
+    /* Hide default radio button */
+}
+
+.category-option i {
+    font-size: 1.5rem;
+    color: #222;
+    margin-bottom: 0.5rem;
+}
+
+.category-option span {
+    font-size: 0.8rem;
+    color: #555;
+    font-weight: 500;
+}
+
+/* Style for selected state */
+.category-option input:checked+.category-content {
+    opacity: 1;
+    border-bottom: 2px solid #000;
+    padding-bottom: 2px;
+}
+
+.category-option input:checked+.category-content i,
+.category-option input:checked+.category-content span {
+    color: #000;
+    font-weight: 600;
+}
+
+.category-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

@@ -1,0 +1,126 @@
+<% layout("layouts/boilerPlate.ejs") %>
+
+    <body>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+
+                    <div class="card shadow-sm p-4">
+                        <h3 class="mb-4 text-center">Edit Listing</h3>
+
+                        <form action="/listings/<%= listing._id %>?_method=PUT" method="post" class="needs-validation"
+                            novalidate enctype="multipart/form-data">
+
+                            <!-- Title -->
+                            <div class="mb-3">
+                                <label class="form-label">Title</label>
+                                <input type="text" class="form-control" name="listing[title]"
+                                    value="<%= listing.title %>" required>
+                                <div class="invalid-feedback">
+                                    Title is required.
+                                </div>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="mb-3">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" name="listing[description]" rows="4"
+                                    required><%= listing.description %></textarea>
+                                <div class="invalid-feedback">
+                                    Description is required.
+                                </div>
+                            </div>
+
+                            <!-- Image Upload -->
+                            <div class="mb-3">
+                                <label class="form-label">Original Listing Image</label>
+                                <img src="<%= originalImageurl %>" class="img-fluid mb-2" style="max-height: 200px;">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Upload New Image</label>
+                                <input type="file" class="form-control" name="listing[image]" />
+                            </div>
+
+                            <!-- Price -->
+                            <div class="mb-3">
+                                <label class="form-label">Price (₹ / night)</label>
+                                <input type="number" class="form-control" name="listing[price]"
+                                    value="<%= listing.price %>" min="1" required>
+                                <div class="invalid-feedback">
+                                    Price must be greater than 0.
+                                </div>
+                            </div>
+
+                            <!-- Country & Location -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Country</label>
+                                    <input type="text" class="form-control" name="listing[country]"
+                                        value="<%= listing.country %>" required>
+                                    <div class="invalid-feedback">
+                                        Country is required.
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Location</label>
+                                    <input type="text" class="form-control" name="listing[location]"
+                                        value="<%= listing.location %>" required>
+                                    <div class="invalid-feedback">
+                                        Location is required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Category Selection -->
+                            <div class="mb-4">
+                                <label class="form-label">Choose a Category</label>
+                                <div class="category-grid">
+
+                                    <% const categories=["Rooms", "Iconic Cities" , "Mountains" , "Castles"
+                                        , "Amazing Pools" , "Camping" , "Farms" , "Arctic" , "Domes" , "Boats", "Home" ]; %>
+                                        <% const icons=["fa-bed", "fa-mountain-city" , "fa-mountain" , "fa-fort-awesome"
+                                            , "fa-person-swimming" , "fa-campground" , "fa-cow" , "fa-snowflake"
+                                            , "fa-igloo" , "fa-ship", "fa-house" ]; %>
+                                            <% const prefixes=["fa-solid", "fa-solid" , "fa-solid" , "fa-brands"
+                                                , "fa-solid" , "fa-solid" , "fa-solid" , "fa-regular" , "fa-solid"
+                                                , "fa-solid", "fa-solid" ]; %>
+
+                                                <% for(let i=0; i<categories.length; i++) { %>
+                                                    <label class="category-option">
+                                                        <input type="radio" name="listing[category]"
+                                                            value="<%= categories[i] %>"
+                                                            <%=listing.category===categories[i] ? 'checked' : '' %>
+                                                        required
+                                                        >
+                                                        <div class="category-content">
+                                                            <i class="<%= prefixes[i] %> <%= icons[i] %>"></i>
+                                                            <span>
+                                                                <%= categories[i] %>
+                                                            </span>
+                                                        </div>
+                                                    </label>
+                                                    <% } %>
+
+                                </div>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="d-grid gap-2 mt-3">
+                                <button class="btn custom-btn" type="submit">
+                                    Update Listing
+                                </button>
+                                <a href="/listings/<%= listing._id %>" class="btn btn-outline-secondary">
+                                    Cancel
+                                </a>
+                            </div>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <script src="js/script.js"></script>
+    </body>

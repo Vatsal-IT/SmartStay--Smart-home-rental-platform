@@ -1,0 +1,95 @@
+<% layout("layouts/authLayout.ejs") %>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-12">
+
+            <div class="card shadow-sm p-4">
+                <h3 class="mb-4 text-center">Login</h3>
+
+                <form action="/login" method="post" class="needs-validation" novalidate>
+
+                    <!-- Username -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">
+                            Username
+                        </label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="username"
+                            placeholder="Enter your username"
+                            required
+                        >
+                        <div class="invalid-feedback">
+                            Username is required.
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">
+                            Password
+                        </label>
+                        <div class="input-group">
+                            <input
+                                type="password"
+                                class="form-control"
+                                name="password"
+                                id="login-password"
+                                placeholder="Enter your password"
+                                required
+                            >
+                            <button class="btn btn-outline-secondary toggle-password" type="button" data-target="login-password">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="invalid-feedback">
+                            Password is required.
+                        </div>
+                    </div>
+
+                    <!-- Toggle Script -->
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            const toggleBtns = document.querySelectorAll('.toggle-password');
+                            toggleBtns.forEach(btn => {
+                                btn.addEventListener('click', () => {
+                                    const targetId = btn.getAttribute('data-target');
+                                    const input = document.getElementById(targetId);
+                                    const icon = btn.querySelector('i');
+
+                                    if (input.type === 'password') {
+                                        input.type = 'text';
+                                        icon.classList.remove('fa-eye');
+                                        icon.classList.add('fa-eye-slash');
+                                    } else {
+                                        input.type = 'password';
+                                        icon.classList.remove('fa-eye-slash');
+                                        icon.classList.add('fa-eye');
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+
+                    <!-- Submit -->
+                    <div class="d-grid mt-3">
+                        <button class="btn btn-primary">
+                            Login
+                        </button>
+                    </div>
+
+                    <!-- Signup link -->
+                    <p class="text-center text-muted mt-3 mb-0">
+                        Don’t have an account?
+                        <a href="/signup">Sign up</a>
+                    </p>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="js/script.js"></script>

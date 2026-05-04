@@ -1,0 +1,177 @@
+<% layout("layouts/authLayout.ejs") %>
+
+    <body>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+
+                    <div class="card shadow-sm p-4">
+                        <h3 class="mb-4 text-center">Signup in Smartstay</h3>
+
+                        <form action="/signup" method="post" class="needs-validation" novalidate>
+
+                            <!-- First Name & Last Name -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold">First Name</label>
+                                    <input type="text" class="form-control" name="fName" placeholder="John"
+                                        pattern="[a-zA-Z]+" title="First name must contain only letters" required>
+                                    <div class="invalid-feedback">First name must contain only letters.</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold">Last Name</label>
+                                    <input type="text" class="form-control" name="lName" placeholder="Doe"
+                                        pattern="[a-zA-Z]+" title="Last name must contain only letters" required>
+                                    <div class="invalid-feedback">Last name must contain only letters.</div>
+                                </div>
+                            </div>
+
+                            <!-- User Contact -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Contact Number</label>
+                                <input type="text" class="form-control" name="contact" placeholder="1234567890"
+                                    pattern="[0-9]{10}" title="Contact number must be exactly 10 digits" required>
+                                <div class="invalid-feedback">Contact number must be exactly 10 digits.</div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    Email
+                                </label>
+                                <input type="email" class="form-control" name="email" placeholder="Enter your email"
+                                    required>
+                                <div class="invalid-feedback">
+                                    Please enter a valid email.
+                                </div>
+                            </div>
+
+                            <!-- Username -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    Username
+                                </label>
+                                <input type="text" class="form-control" name="username" placeholder="Choose a username"
+                                    pattern="[a-zA-Z][a-zA-Z0-9_]*" title="Username must start with a letter" required>
+                                <div class="invalid-feedback">
+                                    Username must start with a letter.
+                                </div>
+                            </div>
+
+                            <!-- Password -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    Password
+                                </label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" name="password" id="password"
+                                        placeholder="Create a password"
+                                        pattern="(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z].{7,}"
+                                        title="Must be 8+ chars, start with letter, have number & special char"
+                                        required>
+                                    <button class="btn btn-outline-secondary toggle-password" type="button"
+                                        data-target="password">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="invalid-feedback">
+                                    Password must be 8+ chars, start with a letter, and contain a number & special char.
+                                </div>
+                            </div>
+
+                            <!-- Confirm-Password -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    Confirm-Password
+                                </label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" name="confirmpassword"
+                                        id="confirmpassword" placeholder="Confirm password"
+                                        pattern="(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z].{7,}"
+                                        title="Must be 8+ chars, start with letter, have number & special char"
+                                        required>
+                                    <button class="btn btn-outline-secondary toggle-password" type="button"
+                                        data-target="confirmpassword">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div id="password-match-msg" class="form-text mt-1"></div>
+                                <div class="invalid-feedback">
+                                    Passwords must match.
+                                </div>
+                            </div>
+
+                            <!-- Submit -->
+                            <div class="d-grid mt-3">
+                                <button class="btn btn-primary" id="signup-btn">
+                                    Sign Up
+                                </button>
+                            </div>
+
+                            <script>
+                                document.addEventListener('DOMContentLoaded', () => {
+                                    const password = document.getElementById('password');
+                                    const confirmPassword = document.getElementById('confirmpassword');
+                                    const matchMsg = document.getElementById('password-match-msg');
+                                    const signupBtn = document.getElementById('signup-btn');
+                                    const toggleBtns = document.querySelectorAll('.toggle-password');
+
+                                    // Real-time Match Check
+                                    function checkMatch() {
+                                        const p1 = password.value;
+                                        const p2 = confirmPassword.value;
+
+                                        if (!p2) {
+                                            matchMsg.textContent = '';
+                                            return;
+                                        }
+
+                                        if (p1 === p2) {
+                                            matchMsg.textContent = 'Passwords match';
+                                            matchMsg.style.color = 'green';
+                                            confirmPassword.setCustomValidity('');
+                                        } else {
+                                            matchMsg.textContent = 'Passwords do not match';
+                                            matchMsg.style.color = 'red';
+                                            confirmPassword.setCustomValidity('Passwords do not match');
+                                        }
+                                    }
+
+                                    password.addEventListener('input', checkMatch);
+                                    confirmPassword.addEventListener('input', checkMatch);
+
+                                    // Visibility Toggle
+                                    toggleBtns.forEach(btn => {
+                                        btn.addEventListener('click', () => {
+                                            const targetId = btn.getAttribute('data-target');
+                                            const input = document.getElementById(targetId);
+                                            const icon = btn.querySelector('i');
+
+                                            if (input.type === 'password') {
+                                                input.type = 'text';
+                                                icon.classList.remove('fa-eye');
+                                                icon.classList.add('fa-eye-slash');
+                                            } else {
+                                                input.type = 'password';
+                                                icon.classList.remove('fa-eye-slash');
+                                                icon.classList.add('fa-eye');
+                                            }
+                                        });
+                                    });
+                                });
+                            </script>
+
+                            <!-- Login Link -->
+                            <p class="text-center text-muted mt-3 mb-0">
+                                Already have an account?
+                                <a href="/login">Login</a>
+                            </p>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="js/script.js"></script>

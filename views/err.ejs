@@ -1,0 +1,32 @@
+<% layout("layouts/boilerPlate.ejs") %>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="text-center">
+
+        <!-- Error Code -->
+        <h1 class="display-1 fw-bold text-danger">
+            <%= status %>
+        </h1>
+
+        <!-- Error Message -->
+        <h3 class="mb-3">
+            <%= msg %>
+        </h3>
+
+        <p class="text-muted mb-4">
+            The page you are looking for doesn’t exist or an unexpected error occurred.
+        </p>
+
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-center gap-3">
+            <a href="/listings" class="btn custom-btn px-4">
+                Go to Home
+            </a>
+
+            <a href="javascript:history.back()" class="btn btn-outline-secondary px-4">
+                Go Back
+            </a>
+        </div>
+
+    </div>
+</div>

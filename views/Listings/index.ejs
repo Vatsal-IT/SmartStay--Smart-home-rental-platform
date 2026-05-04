@@ -1,0 +1,158 @@
+<% layout("layouts/boilerPlate.ejs") %>
+<%
+  const thumbUrl = (u) => {
+    if (!u) return u;
+    if (u.includes('loremflickr.com/800/600/')) {
+      return u.replace('loremflickr.com/800/600/', 'loremflickr.com/480/360/');
+    }
+    let out = u.replace(/([?&]w=)\d+/i, '$1480');
+    return out;
+  };
+
+  const pageUrl = (newPage) => {
+    const p = {};
+    if (typeof category !== 'undefined' && category) p.category = category;
+    if (typeof search !== 'undefined' && search) p.search = search;
+    if (typeof priceRange !== 'undefined' && priceRange !== null && priceRange !== '') p.priceRange = priceRange;
+    if (typeof limit !== 'undefined' && limit) p.limit = limit;
+    p.page = newPage;
+    const qs = new URLSearchParams(p).toString();
+    return qs ? '/listings?' + qs : '/listings';
+  };
+%>
+
+<% if (typeof isHomepage !== 'undefined' && isHomepage && typeof citySections !== 'undefined' && citySections.length > 0) { %>
+
+  <div class="city-sections-wrapper">
+    <% citySections.forEach(function(section, si) { %>
+      <section class="city-section">
+        <div class="city-section-header">
+          <h2 class="city-section-title d-flex align-items-center flex-wrap">
+            <span>
+              <span class="city-emoji"><%= section.emoji %></span>
+              <%= section.label %>
+            </span>
+            <a href="/chat?city=<%= encodeURIComponent(section.name) %>" class="btn btn-sm btn-outline-primary ms-3 rounded-pill" style="font-size: 0.9rem; padding: 2px 10px;">
+              <i class="fa-regular fa-comments"></i> City Chat
+            </a>
+            <a href="/listings?search=<%= encodeURIComponent(section.name) %>" class="city-see-all ms-2">→</a>
+          </h2>
+          <div class="city-scroll-btns" id="scroll-btns-<%= si %>">
+            <button class="scroll-arrow scroll-left" onclick="scrollCity(<%= si %>, -1)" aria-label="Scroll left">&#8249;</button>
+            <button class="scroll-arrow scroll-right" onclick="scrollCity(<%= si %>, 1)" aria-label="Scroll right">&#8250;</button>
+          </div>
+        </div>
+
+        <div class="city-cards-track" id="city-track-<%= si %>">
+          <% section.listings.forEach(function(listing, li) { %>
+            <a href="/listings/<%= listing._id %>" class="city-card-link">
+              <div class="city-card">
+                <div class="city-card-img-wrap">
+                  <% if (li % 3 !== 0) { %>
+                    <span class="guest-fav-badge">Guest favourite</span>
+                  <% } %>
+                  <img
+                    src="<%= thumbUrl(listing.image && listing.image.url) %>"
+                    alt="<%= listing.title %>"
+                    loading="lazy"
+                    decoding="async"
+                    onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?auto=format&fit=crop&w=480&q=60';"
+                  >
+                  <button class="city-card-heart" aria-label="Save to wishlist" onclick="event.preventDefault(); this.classList.toggle('saved');">
+                    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                      <path d="M16 28c7-4.733 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.267 14 17z"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="city-card-body">
+                  <div class="city-card-title"><%= listing.title %></div>
+                  <div class="city-card-location"><%= listing.location %></div>
+                  <div class="city-card-price"><strong>₹<%= listing.price.toLocaleString("en-IN") %></strong> /night</div>
+                </div>
+              </div>
+            </a>
+          <% }); %>
+        </div>
+      </section>
+    <% }); %>
+  </div>
+
+<% } %>
+
+<% if (typeof allListings !== 'undefined' && allListings.length > 0 && !isHomepage) { %>
+  <div class="row g-4 mt-2">
+    <% for (let listing of allListings) { %>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <a href="/listings/<%= listing._id %>" class="text-decoration-none text-dark">
+          <div class="card h-100">
+            <img
+              src="<%= thumbUrl(listing.image && listing.image.url) %>"
+              class="card-img-top"
+              alt="Listing image"
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
+              width="480"
+              height="360"
+              onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?auto=format&fit=crop&w=480&q=60';"
+            >
+            <div class="card-body">
+              <p class="card-text">
+                <strong><%= listing.title %></strong><br>
+                <span class="listing-location"><i class="fa-solid fa-location-dot"></i> <%= listing.location %></span><br>
+                <span>₹<%= listing.price.toLocaleString("en-IN") %>/night</span>
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    <% } %>
+  </div>
+
+  <% if (typeof totalPages !== 'undefined' && totalPages > 1) { %>
+    <nav class="mt-4" aria-label="Listings pagination">
+      <ul class="pagination justify-content-center">
+        <li class="page-item <%= page <= 1 ? 'disabled' : '' %>">
+          <a class="page-link" href="<%= pageUrl(Math.max(page - 1, 1)) %>" aria-label="Previous">Previous</a>
+        </li>
+        <li class="page-item disabled">
+          <span class="page-link">Page <%= page %> / <%= totalPages %></span>
+        </li>
+        <li class="page-item <%= page >= totalPages ? 'disabled' : '' %>">
+          <a class="page-link" href="<%= pageUrl(Math.min(page + 1, totalPages)) %>" aria-label="Next">Next</a>
+        </li>
+      </ul>
+    </nav>
+  <% } %>
+<% } else if (!isHomepage) { %>
+  <div class="no-listings-msg">
+    <i class="fa-solid fa-house-circle-xmark"></i>
+    <p>No listings found matching your search.</p>
+    <a href="/listings" class="btn custom-btn">Clear Filters</a>
+  </div>
+<% } %>
+
+<script>
+  function scrollCity(idx, dir) {
+    const track = document.getElementById('city-track-' + idx);
+    if (!track) return;
+    const card = track.querySelector('.city-card-link');
+    const cardWidth = card ? card.offsetWidth + 16 : 260;
+    track.scrollBy({ left: dir * cardWidth * 2, behavior: 'smooth' });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.city-cards-track').forEach(function(track, idx) {
+      var updateArrows = function() {
+        var btnContainer = document.getElementById('scroll-btns-' + idx);
+        if (!btnContainer) return;
+        var leftBtn = btnContainer.querySelector('.scroll-left');
+        var rightBtn = btnContainer.querySelector('.scroll-right');
+        if (leftBtn) leftBtn.style.opacity = track.scrollLeft > 10 ? '1' : '0.35';
+        if (rightBtn) rightBtn.style.opacity = (track.scrollLeft + track.clientWidth) < (track.scrollWidth - 10) ? '1' : '0.35';
+      };
+      track.addEventListener('scroll', updateArrows, { passive: true });
+      updateArrows();
+    });
+  });
+</script>

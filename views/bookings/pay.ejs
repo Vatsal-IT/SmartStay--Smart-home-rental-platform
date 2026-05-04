@@ -1,0 +1,402 @@
+<body>
+  <style>
+    :root {
+      --ss-red: #fe424d;
+      --ss-pink: #fff5f5;
+      --ss-text: #222;
+      --ss-muted: #717171;
+    }
+
+    body {
+      background-color: #f7f7f7;
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
+
+    .payment-wrapper {
+      display: flex;
+      width: 95vw;
+      max-width: 1000px;
+      height: 640px;
+      background: #fff;
+      margin: 40px auto;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+    }
+
+    /* Left Sidebar */
+    .payment-sidebar {
+      background-color: var(--ss-red);
+      width: 320px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      color: #fff;
+      position: relative;
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+
+    .sidebar-logo i {
+      background: #fff;
+      color: var(--ss-red);
+      padding: 8px;
+      border-radius: 8px;
+    }
+
+    .summary-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      color: var(--ss-text);
+      margin-bottom: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .summary-label {
+      font-size: 0.9rem;
+      color: var(--ss-muted);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .summary-price {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .user-pill {
+      background: #fff;
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: var(--ss-text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .user-pill i:first-child {
+      color: var(--ss-red);
+      margin-right: 10px;
+    }
+
+    .sidebar-graphics {
+      margin-top: auto;
+      display: flex;
+      justify-content: center;
+      opacity: 0.8;
+    }
+
+    /* Main Content */
+    .payment-main {
+      flex: 1;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      background-color: var(--ss-pink);
+    }
+
+    .payment-header {
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--ss-muted);
+    }
+
+    .payment-content-body {
+      flex: 1;
+      display: flex;
+    }
+
+    /* Tabs Sidebar */
+    .payment-methods {
+      width: 180px;
+      padding: 20px 0;
+      border-right: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .method-tab {
+      padding: 16px 30px;
+      font-size: 0.9rem;
+      color: var(--ss-text);
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .method-tab.active {
+      background-color: #fff;
+    }
+
+    .method-icons {
+      display: flex;
+      gap: 6px;
+    }
+
+    .method-icons img {
+      height: 12px;
+      opacity: 0.7;
+    }
+
+    /* Form Area */
+    .form-pane {
+      flex: 1;
+      background: #fff;
+      padding: 40px;
+    }
+
+    .form-pane h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .input-group-custom {
+      margin-bottom: 16px;
+    }
+
+    .input-group-custom label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--ss-muted);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .ss-input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid #eee;
+      border-radius: 10px;
+      font-weight: 500;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .ss-input:focus {
+      border-color: var(--ss-red);
+    }
+
+    .input-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .card-num-wrapper {
+      position: relative;
+    }
+
+    .card-type-icon {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-weight: 700;
+      color: #0056b3; /* Visa Blue */
+      font-style: italic;
+    }
+
+    .error-msg {
+      color: #dc3545;
+      font-size: 0.75rem;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .save-card-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 24px 0;
+      font-size: 0.85rem;
+      color: var(--ss-muted);
+    }
+
+    .btn-continue {
+      background: #000;
+      color: #fff;
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      border: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn-continue:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-continue:hover:not(:disabled) {
+      opacity: 0.9;
+    }
+
+    /* Hide Bootstrap navbar within this page for clean look */
+    .navbar { display: none; }
+    #filters { display: none; }
+    footer { display: none; }
+  </style>
+
+  <div class="payment-wrapper">
+    <!-- Sidebar -->
+    <div class="payment-sidebar">
+      <div class="sidebar-logo">
+        <i class="fa-solid fa-hotel"></i>
+        <span>SmartStay</span>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-label">Price Summary</div>
+        <div class="summary-price">₹<%= (booking.totalPrice).toLocaleString("en-IN") %></div>
+      </div>
+
+      <div class="user-pill">
+        <div>
+          <i class="fa-solid fa-user"></i>
+          <span>Using as +91 <%= currentUser ? currentUser.contact : "99043 28448" %></span>
+        </div>
+        <i class="fa-solid fa-chevron-right small"></i>
+      </div>
+
+      <div class="sidebar-graphics">
+        <svg width="200" height="150" viewBox="0 0 200 150">
+          <rect x="40" y="80" width="40" height="40" fill="#fff" opacity="0.4"/>
+          <rect x="90" y="60" width="50" height="60" fill="#fff" opacity="0.6"/>
+          <rect x="150" y="90" width="30" height="30" fill="#fff" opacity="0.3"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="payment-main">
+      <div class="payment-header">
+        <span>Payment Method</span>
+        <div>
+          <i class="fa-solid fa-shield-halved text-success"></i>
+          <span class="ms-2">Secure Checkout</span>
+        </div>
+      </div>
+
+      <div class="payment-content-body" style="background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px;">
+        <div class="text-center mb-5">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Razorpay_logo.svg" alt="Razorpay Logo" style="height: 48px; margin-bottom: 20px;">
+          <h3 style="font-size: 1.4rem; font-weight: 700;">Complete your payment</h3>
+          <p class="text-muted" style="max-width: 300px; margin: 0 auto;">You will be redirected to the secure Razorpay portal to complete your transaction using test details.</p>
+        </div>
+
+        <button id="payBtn" class="btn-continue" style="max-width: 400px; background: #232d3f;">
+          <i class="fa-solid fa-lock me-2"></i> Pay ₹<%= (booking.totalPrice).toLocaleString("en-IN") %> via Razorpay
+        </button>
+
+        <div class="mt-4 d-flex align-items-center gap-3">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" height="16">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" height="16">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Rupay-Logo.svg" alt="RuPay" height="14">
+        </div>
+        
+        <div id="status" class="mt-3 small text-muted"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Razorpay SDK -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <script>
+    const payBtn = document.getElementById("payBtn");
+    const statusEl = document.getElementById("status");
+
+    function setStatus(msg) {
+      statusEl.textContent = msg || "";
+    }
+
+    payBtn.addEventListener("click", async () => {
+      try {
+        payBtn.disabled = true;
+        setStatus("Initiating secure connection...");
+
+        // 1. Get Order ID from backend
+        const response = await fetch(`/bookings/<%= booking._id %>/payments/initiate`, {
+          method: "POST"
+        });
+        const data = await response.json();
+        
+        if (!response.ok || !data.ok) {
+          throw new Error(data.message || "Failed to initiate payment");
+        }
+
+        // 2. Open official Razorpay Modal
+        const options = {
+          key: "<%= razorpayKeyId %>",
+          amount: data.order.amount,
+          currency: data.order.currency,
+          name: "SmartStay",
+          description: "Booking Payment",
+          order_id: data.order.id,
+          handler: async function (res) {
+            try {
+              setStatus("Verifying transaction...");
+              const verifyRes = await fetch(`/bookings/<%= booking._id %>/payments/verify`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(res)
+              });
+              const verifyData = await verifyRes.json();
+              
+              if (verifyRes.ok && verifyData.ok) {
+                setStatus("Payment successful! Redirecting...");
+                setTimeout(() => { window.location.href = "/bookings/my"; }, 1500);
+              } else {
+                throw new Error(verifyData.message || "Verification failed");
+              }
+            } catch (err) {
+              console.error(err);
+              setStatus("Error: " + err.message);
+              payBtn.disabled = false;
+            }
+          },
+          prefill: {
+            name: "<%= currentUser ? (currentUser.username) : '' %>",
+            contact: "<%= currentUser ? currentUser.contact : '' %>",
+            email: "<%= currentUser ? currentUser.email : '' %>"
+          },
+          theme: { color: "#fe424d" },
+          modal: {
+            ondismiss: function() {
+              setStatus("Payment cancelled.");
+              payBtn.disabled = false;
+            }
+          }
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.open();
+
+      } catch (err) {
+        console.error(err);
+        setStatus("Something went wrong: " + err.message);
+        payBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+

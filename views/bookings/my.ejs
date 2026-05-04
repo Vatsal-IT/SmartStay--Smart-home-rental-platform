@@ -1,0 +1,164 @@
+<% layout("layouts/boilerPlate.ejs") %>
+
+<!-- Razorpay SDK -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<div class="container mt-5">
+  <h2 class="mb-4">My Bookings</h2>
+
+    <% if (bookings.length === 0) { %>
+      <p>You have no bookings yet.</p>
+    <% } else { %>
+      <div class="row g-4">
+        <% bookings.forEach(booking => { %>
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card h-100">
+              <% if (booking.listing && booking.listing.image) { %>
+                <img src="<%= booking.listing.image.url %>" class="card-img-top" alt="Listing image">
+              <% } %>
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= booking.listing ? booking.listing.title : "Listing removed" %>
+                </h5>
+                <p class="card-text mb-1">
+                  <strong>Dates:</strong>
+                  <%= booking.startDate.toDateString() %> - <%= booking.endDate.toDateString() %>
+                </p>
+                <p class="card-text mb-1">
+                  <strong>Guests:</strong> <%= booking.guests %>
+                </p>
+                <p class="card-text mb-1">
+                  <strong>Status:</strong>
+                  <span class="badge
+                    <%= booking.status === 'confirmed' ? 'bg-success' :
+                        booking.status === 'accepted' ? 'bg-primary' :
+                        booking.status === 'rejected' ? 'bg-danger' :
+                        booking.status === 'expired' ? 'bg-secondary' :
+                        'bg-warning text-dark' %>">
+                    <%= booking.status %>
+                  </span>
+                </p>
+                <p class="card-text mb-1">
+                  <strong>Payment:</strong>
+                  <span class="badge <%= booking.paymentStatus === 'paid' ? 'bg-success' : 'bg-warning text-dark' %>">
+                    <%= booking.paymentStatus %>
+                  </span>
+                </p>
+                <p class="card-text">
+                  <strong>Total:</strong> ₹<%= booking.totalPrice.toLocaleString("en-IN") %>
+                </p>
+                <% if (booking.listing) { %>
+                  <a href="/listings/<%= booking.listing._id %>" class="btn btn-outline-primary btn-sm">
+                    View listing
+                  </a>
+                  <% if (booking.status === 'accepted' && booking.paymentStatus === 'unpaid') { %>
+                    <button 
+                      class="btn btn-success btn-sm ms-2"
+                      onclick="payWithRazorpay('<%= booking._id %>', '<%= booking.totalPrice %>')"
+                      id="pay-btn-<%= booking._id %>"
+                    >
+                      Pay now
+                    </button>
+                    <div id="status-<%= booking._id %>" class="small text-muted mt-1" style="display: none;"></div>
+                  <% } %>
+                  <% if (booking.status === 'confirmed') { %>
+                    <a
+                      href="/chat?city=<%= encodeURIComponent(booking.listing.location) %>"
+                      class="btn btn-outline-success btn-sm ms-2"
+                    >
+                      City chat
+                    </a>
+                  <% } %>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+
+  <!-- Razorpay SDK -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <script>
+    async function payWithRazorpay(bookingId, totalPrice) {
+      const btn = document.getElementById(`pay-btn-${bookingId}`);
+      const status = document.getElementById(`status-${bookingId}`);
+      
+      const setStatus = (msg) => {
+        status.style.display = "block";
+        status.textContent = msg;
+      };
+
+      try {
+        btn.disabled = true;
+        setStatus("Initiating...");
+
+        // 1. Get Order ID from backend
+        const response = await fetch(`/bookings/${bookingId}/payments/initiate`, {
+          method: "POST"
+        });
+        const data = await response.json();
+        
+        if (!response.ok || !data.ok) {
+          throw new Error(data.message || "Failed to initiate payment");
+        }
+
+        // 2. Open official Razorpay Modal
+        const options = {
+          key: "<%= razorpayKeyId %>",
+          amount: data.order.amount,
+          currency: data.order.currency,
+          name: "SmartStay",
+          description: "Booking Payment",
+          order_id: data.order.id,
+          handler: async function (res) {
+            try {
+              setStatus("Verifying...");
+              const verifyRes = await fetch(`/bookings/${bookingId}/payments/verify`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(res)
+              });
+              const verifyData = await verifyRes.json();
+              
+              if (verifyRes.ok && verifyData.ok) {
+                setStatus("Successful! Refreshing...");
+                setTimeout(() => { window.location.reload(); }, 1000);
+              } else {
+                throw new Error(verifyData.message || "Verification failed");
+              }
+            } catch (err) {
+              console.error(err);
+              setStatus("Error: " + err.message);
+              btn.disabled = false;
+            }
+          },
+          prefill: {
+            name: "<%= currentUser ? (currentUser.username) : '' %>",
+            contact: "<%= currentUser ? currentUser.contact : '' %>",
+            email: "<%= currentUser ? currentUser.email : '' %>"
+          },
+          theme: { color: "#fe424d" },
+          modal: {
+            ondismiss: function() {
+              setStatus("");
+              status.style.display = "none";
+              btn.disabled = false;
+            }
+          }
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.open();
+
+      } catch (err) {
+        console.error(err);
+        alert("Something went wrong: " + err.message);
+        btn.disabled = false;
+        status.style.display = "none";
+      }
+    }
+  </script>
+

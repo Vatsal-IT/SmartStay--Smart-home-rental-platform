@@ -1,0 +1,65 @@
+<nav class="navbar navbar-expand-md bg-white border-bottom sticky-top">
+  <div class="container-fluid">
+
+    <!-- Logo -->
+    <a class="navbar-brand" href="/listings">
+      <i class="fa-regular fa-compass"></i>
+      <b>SmartStay</b>
+    </a>
+
+    <!-- Search Bar (Centered) -->
+    <div class="navbar-nav ms-auto me-auto">
+      <form class="d-flex align-items-center gap-2" role="search" action="/listings" method="GET">
+        <div class="search-bar">
+          <input class="search-input" type="search" name="search" placeholder="Search Location"
+            value="<%= typeof search !== 'undefined' ? search : '' %>" aria-label="Search by location">
+        </div>
+        <button class="search-btn" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i> Search
+        </button>
+      </form>
+    </div>
+
+    <script>
+      // Price filter removed as per user request
+    </script>
+
+    <!-- Right Side Menu -->
+    <div class="navbar-nav ms-auto">
+      <div class="dropdown">
+        <button class="btn btn-light dropdown-toggle user-menu-btn" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+          <div class="user-icon-container">
+            <i class="fa-solid fa-user"></i>
+          </div>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <% if (!currentUser) { %>
+            <li><a class="dropdown-item fw-bold" href="/signup">Sign up</a></li>
+            <li><a class="dropdown-item" href="/login">Log in</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="/listings/new">Smartstay your home</a></li>
+            <li><a class="dropdown-item" href="#">Help Center</a></li>
+            <% } else { %>
+              <li>
+                <h6 class="dropdown-header">Welcome, <%= currentUser.username %>
+                </h6>
+              </li>
+               <li><a class="dropdown-item" href="/listings/new">Smartstay your home</a></li>
+               <li><a class="dropdown-item" href="/listings/my/listings">My Listings</a></li>
+               <li><a class="dropdown-item" href="/bookings/my">My Bookings</a></li>
+               <li><a class="dropdown-item" href="/bookings/owner">Booking Requests</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item text-danger" href="/logout">Log out</a></li>
+              <% } %>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</nav>

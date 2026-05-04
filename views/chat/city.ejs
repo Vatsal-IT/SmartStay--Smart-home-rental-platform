@@ -1,0 +1,97 @@
+<% layout("layouts/boilerPlate.ejs") %>
+<link rel="stylesheet" href="/css/chat.css">
+
+<body>
+  <div class="mt-4 mb-4">
+    <div class="chat-container">
+      <div class="chat-header">
+        <i class="fa-solid fa-comments"></i>
+        <h4>City Chat — <%= city %></h4>
+        <span class="badge-online">Live</span>
+      </div>
+
+      <div id="chat-box" class="chat-messages">
+        <% if (messages && messages.length) { %>
+          <% messages.forEach(msg => { %>
+            <% const isSystem = msg.username === 'System'; %>
+            <% const isMe = !isSystem && msg.username === currentUser.username; %>
+            <div class="msg-bubble <%= isSystem ? 'system' : (isMe ? 'outgoing' : 'incoming') %>">
+              <% if (!isSystem) { %>
+                <div class="msg-sender"><%= msg.username %></div>
+              <% } %>
+              <div class="msg-text"><%= msg.text %></div>
+              <div class="msg-time">
+                <%= new Date(msg.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) %>
+              </div>
+            </div>
+          <% }) %>
+        <% } %>
+      </div>
+
+      <form id="chat-form" class="chat-input-area">
+        <input
+          type="text"
+          id="chat-input"
+          placeholder="Type a message..."
+          autocomplete="off"
+          required
+        />
+        <button type="submit" title="Send">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const city = "<%= city %>";
+    const username = "<%= currentUser.username %>";
+    const userId = "<%= currentUser._id %>";
+
+    const socket = io();
+    const chatBox = document.getElementById("chat-box");
+    const chatForm = document.getElementById("chat-form");
+    const chatInput = document.getElementById("chat-input");
+
+    socket.emit("joinRoom", { city, username });
+
+    function escapeHtml(s) {
+      const div = document.createElement("div");
+      div.textContent = s;
+      return div.innerHTML;
+    }
+
+    function appendMessage(msg) {
+      const div = document.createElement("div");
+      const time = new Date(msg.createdAt);
+      const timeStr = time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      const isSystem = msg.username === "System";
+      const isMe = !isSystem && msg.username === username;
+
+      div.className = `msg-bubble ${isSystem ? "system" : isMe ? "outgoing" : "incoming"}`;
+      div.innerHTML = `
+        ${!isSystem ? `<div class="msg-sender">${escapeHtml(msg.username)}</div>` : ""}
+        <div class="msg-text">${escapeHtml(msg.text)}</div>
+        <div class="msg-time">${timeStr}</div>
+      `;
+      chatBox.appendChild(div);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    socket.on("chatMessage", (msg) => {
+      appendMessage(msg);
+    });
+
+    chatForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const text = chatInput.value.trim();
+      if (!text) return;
+
+      socket.emit("chatMessage", { city, username, text, userId });
+      chatInput.value = "";
+      chatInput.focus();
+    });
+  </script>
+</body>
+
