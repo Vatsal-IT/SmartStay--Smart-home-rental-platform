@@ -1,2 +1,22 @@
 # SmartStay--Smart-home-rental-platform
-1. Smart Stay Full-stack accommodation booking system built using Node.js, Express, and MongoDB
+
+## Description
+A full-stack accommodation booking web application that allows users to browse, book, and manage stays.
+
+## Tech Stack
+- Node.js
+- Express.js
+- MongoDB
+- HTML, CSS, JavaScript
+
+## Features
+- User authentication (login/signup)
+- Property listing and filtering
+- Booking system
+- Admin panel
+- CRUD operations
+
+## How to Run
+1. Clone the repository
+2. Install dependencies using npm install
+3. Run the server using npm start
