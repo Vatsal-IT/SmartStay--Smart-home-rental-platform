@@ -1,0 +1,49 @@
+Scope: It is booking platform which enables secure property listing searching and reservation through user friendly web-application.
+
+objective: we build this project to learn how real booking platforms work, solve user problems and experiment with new features like
+           AI based recommendation and safety checks.
+
+Existing modules:
+
+
+i)user management module
+ii)authentication and authorized module
+iii)property listing module
+iv)search and discovery module
+v)booking and reservation module
+vi)pricing and fee calculation module
+vii)payment and payout module
+viii)Review and rating module
+ix) Messaging and communication module
+x)Notification
+xi)location and map
+xii)help and support module
+xiii)policy and compliance
+xiv)Admin panel
+
+
+New Modules:
+
+i)fraud and fake Listing module
+ii)smart Dynamic pricing advisor
+iii)Trip cost and budget planner
+iv)personalised recommendation engine
+v)Group decision intelligence module
+vi) Review Truthfulness and sentiment analyzer.
+
+
+Global Airbnb platforms:
+
+1) Booking.com
+-Hotels + apartments + homestays.
+2)Vrbo
+-focuses on home stays.
+3)Agoda
+-Hotels + home.
+4)Expedia
+-hotels+ home+ flights.
+5)MakeMyTrip
+-hotels+ homestays
+6)goibibo
+- hotels + homestays.
+

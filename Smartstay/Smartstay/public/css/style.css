@@ -1,0 +1,371 @@
+/* Navbar Styling */
+.navbar {
+    height: 5rem;
+    background-color: #fff !important;
+}
+
+.fa-compass {
+    color: #fe424d;
+    font-size: 2rem;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-link {
+    color: #222 !important;
+    font-weight: 500;
+}
+
+/* Search Bar */
+.search-bar {
+    border: 1px solid #ddd;
+    border-radius: 40px;
+    padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    transition: box-shadow 0.2s;
+    width: 24rem;
+    /* Adjust width as needed */
+}
+
+.search-bar:hover {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    font-size: 0.9rem;
+    color: #222;
+    width: 100%;
+    font-weight: 500;
+}
+
+.search-btn {
+    background-color: #fe424d;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.search-btn:hover {
+    background-color: #e63946;
+}
+
+/* Price Range Filter (Amazon-style) */
+.price-range-divider {
+    width: 1px;
+    height: 2rem;
+    background: #ddd;
+    margin: 0 0.5rem;
+    flex-shrink: 0;
+}
+
+.price-range-label {
+    font-size: 0.8rem;
+    color: #666;
+    font-weight: 600;
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+    align-self: center;
+}
+
+.price-range-filter {
+    padding: 0.4rem 0.8rem;
+}
+
+.price-range-filter p {
+    margin: 0;
+    font-size: 0.8rem;
+}
+
+/* User Menu Dropdown */
+.user-menu-btn {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    padding: 0.3rem 0.3rem 0.3rem 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: box-shadow 0.2s;
+}
+
+.user-menu-btn:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+    background-color: #fff;
+}
+
+.user-icon-container {
+    background-color: #717171;
+    color: #fff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.dropdown-menu {
+    border-radius: 12px;
+    padding: 0.5rem 0;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    border: none;
+    width: 240px;
+}
+
+.dropdown-item {
+    padding: 0.7rem 1rem;
+    font-weight: 400;
+    color: #222;
+}
+
+.dropdown-item:hover {
+    background-color: #f7f7f7;
+}
+
+
+/* Category Filter Bar */
+#filters {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+    /* Hide scrollbar */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#filters::-webkit-scrollbar {
+    display: none;
+}
+
+.filter {
+    text-align: center;
+    margin-right: 2rem;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 0.5rem;
+}
+
+.filter:hover {
+    opacity: 1;
+    border-bottom: 2px solid #ddd;
+}
+
+.filter.selected {
+    opacity: 1;
+    border-bottom: 2px solid #000;
+}
+
+.filter.selected i,
+.filter.selected p {
+    color: #000;
+}
+
+.filter p {
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+.filter i {
+    font-size: 1.4rem;
+    color: #000;
+}
+
+/* Tax Toggle Switch */
+.tax-toggle {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    height: 3rem;
+    padding: 0.7rem 1rem;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    min-width: 240px;
+    white-space: nowrap;
+}
+
+/* Footer */
+.f-info {
+    text-align: center;
+    height: 4rem;
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #eee;
+    margin-top: 2rem;
+    color: #555;
+    gap: 1rem;
+    font-size: 0.9rem;
+}
+
+.f-info-links a {
+    text-decoration: none;
+    color: #555;
+    margin: 0 0.5rem;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+    color: #222;
+}
+
+.f-info-socials i {
+    font-size: 1.1rem;
+    margin: 0 0.5rem;
+    color: #555;
+}
+
+.f-info-socials i:hover {
+    color: #222;
+}
+
+/* cards */
+/* Listing Cards */
+.card {
+    border: none;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: #ffffff;
+}
+
+/* Hover effect */
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Image styling */
+.card-img-top {
+    height: 280px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+/* Slight zoom on hover */
+.card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+/* Card body */
+.card-body {
+    padding: 1rem 1.2rem;
+}
+
+/* Title */
+.card-text strong {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #222;
+}
+
+/* Price */
+.card-text {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* Price highlight */
+.card-text span {
+    font-weight: 600;
+    color: #000;
+}
+
+/* Remove blue outline on click */
+.card:focus {
+    outline: none;
+}
+
+/* button */
+.custom-btn {
+    background-color: #fe424d !important;
+    color: #fff;
+    border: none;
+}
+
+
+/* Category Filters in Forms */
+.category-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.category-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.category-option:hover {
+    opacity: 1;
+}
+
+.category-option input {
+    display: none;
+    /* Hide default radio button */
+}
+
+.category-option i {
+    font-size: 1.5rem;
+    color: #222;
+    margin-bottom: 0.5rem;
+}
+
+.category-option span {
+    font-size: 0.8rem;
+    color: #555;
+    font-weight: 500;
+}
+
+/* Style for selected state */
+.category-option input:checked+.category-content {
+    opacity: 1;
+    border-bottom: 2px solid #000;
+    padding-bottom: 2px;
+}
+
+.category-option input:checked+.category-content i,
+.category-option input:checked+.category-content span {
+    color: #000;
+    font-weight: 600;
+}
+
+.category-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

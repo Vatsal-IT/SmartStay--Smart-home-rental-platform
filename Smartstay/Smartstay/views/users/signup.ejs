@@ -1,0 +1,107 @@
+<% layout("layouts/boilerPlate.ejs") %>
+
+    <body>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+
+                    <div class="card shadow-sm p-4">
+                        <h3 class="mb-4 text-center">Signup in Smartstay</h3>
+
+                        <form action="/signup" method="post" class="needs-validation" novalidate>
+
+                            <!-- First Name & Last Name -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold">First Name</label>
+                                    <input type="text" class="form-control" name="fName" placeholder="John"
+                                        pattern="[a-zA-Z]+" title="First name must contain only letters" required>
+                                    <div class="invalid-feedback">First name must contain only letters.</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold">Last Name</label>
+                                    <input type="text" class="form-control" name="lName" placeholder="Doe"
+                                        pattern="[a-zA-Z]+" title="Last name must contain only letters" required>
+                                    <div class="invalid-feedback">Last name must contain only letters.</div>
+                                </div>
+                            </div>
+
+                            <!-- User Contact -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Contact Number</label>
+                                <input type="text" class="form-control" name="contact" placeholder="1234567890"
+                                    pattern="[0-9]{10}" title="Contact number must be exactly 10 digits" required>
+                                <div class="invalid-feedback">Contact number must be exactly 10 digits.</div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    Email
+                                </label>
+                                <input type="email" class="form-control" name="email" placeholder="Enter your email"
+                                    required>
+                                <div class="invalid-feedback">
+                                    Please enter a valid email.
+                                </div>
+                            </div>
+
+                            <!-- Username -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    Username
+                                </label>
+                                <input type="text" class="form-control" name="username" placeholder="Choose a username"
+                                    pattern="[a-zA-Z][a-zA-Z0-9_]*" title="Username must start with a letter" required>
+                                <div class="invalid-feedback">
+                                    Username must start with a letter.
+                                </div>
+                            </div>
+
+                            <!-- Password -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    Password
+                                </label>
+                                <input type="password" class="form-control" name="password"
+                                    placeholder="Create a password" pattern="(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z].{7,}"
+                                    title="Must be 8+ chars, start with letter, have number & special char" required>
+                                <div class="invalid-feedback">
+                                    Password must be 8+ chars, start with a letter, and contain a number & special char.
+                                </div>
+                            </div>
+
+                             <!-- Confirm-Password -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    Confirm-Password
+                                </label>
+                                <input type="text" class="form-control" name="confirmpassword"
+                                    placeholder="Confirm password" pattern="(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z].{7,}"
+                                    title="Must be 8+ chars, start with letter, have number & special char" required>
+                                <div class="invalid-feedback">
+                                    Password must be 8+ chars, start with a letter, and contain a number & special char.
+                                </div>
+                            </div>
+
+                            <!-- Submit -->
+                            <div class="d-grid mt-3">
+                                <button class="btn btn-primary">
+                                    Sign Up
+                                </button>
+                            </div>
+
+                            <!-- Login Link -->
+                            <p class="text-center text-muted mt-3 mb-0">
+                                Already have an account?
+                                <a href="/login.ejs">Login</a>
+                            </p>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="js/script.js"></script>

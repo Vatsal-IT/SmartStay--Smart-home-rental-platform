@@ -1,0 +1,60 @@
+<% layout("layouts/boilerPlate.ejs") %>
+
+<body>
+  <div class="container mt-5">
+    <h2 class="mb-4">My Bookings</h2>
+
+    <% if (bookings.length === 0) { %>
+      <p>You have no bookings yet.</p>
+    <% } else { %>
+      <div class="row g-4">
+        <% bookings.forEach(booking => { %>
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card h-100">
+              <% if (booking.listing && booking.listing.image) { %>
+                <img src="<%= booking.listing.image.url %>" class="card-img-top" alt="Listing image">
+              <% } %>
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= booking.listing ? booking.listing.title : "Listing removed" %>
+                </h5>
+                <p class="card-text mb-1">
+                  <strong>Dates:</strong>
+                  <%= booking.startDate.toDateString() %> - <%= booking.endDate.toDateString() %>
+                </p>
+                <p class="card-text mb-1">
+                  <strong>Guests:</strong> <%= booking.guests %>
+                </p>
+                <p class="card-text mb-1">
+                  <strong>Status:</strong>
+                  <span class="badge
+                    <%= booking.status === 'approved' ? 'bg-success' :
+                        booking.status === 'rejected' ? 'bg-danger' : 'bg-warning text-dark' %>">
+                    <%= booking.status %>
+                  </span>
+                </p>
+                <p class="card-text">
+                  <strong>Total:</strong> ₹<%= booking.totalPrice.toLocaleString("en-IN") %>
+                </p>
+                <% if (booking.listing) { %>
+                  <a href="/listings/<%= booking.listing._id %>" class="btn btn-outline-primary btn-sm">
+                    View listing
+                  </a>
+                  <% if (booking.status === 'approved') { %>
+                    <a
+                      href="/chat?city=<%= encodeURIComponent(booking.listing.location) %>"
+                      class="btn btn-outline-success btn-sm ms-2"
+                    >
+                      City chat
+                    </a>
+                  <% } %>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+</body>
+

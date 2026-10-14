@@ -1,0 +1,65 @@
+<% layout("layouts/boilerPlate.ejs") %>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-12">
+
+            <div class="card shadow-sm p-4">
+                <h3 class="mb-4 text-center">Login</h3>
+
+                <form action="/login" method="post" class="needs-validation" novalidate>
+
+                    <!-- Username -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">
+                            Username
+                        </label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="username"
+                            placeholder="Enter your username"
+                            required
+                        >
+                        <div class="invalid-feedback">
+                            Username is required.
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            class="form-control"
+                            name="password"
+                            placeholder="Enter your password"
+                            required
+                        >
+                        <div class="invalid-feedback">
+                            Password is required.
+                        </div>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="d-grid mt-3">
+                        <button class="btn btn-primary">
+                            Login
+                        </button>
+                    </div>
+
+                    <!-- Signup link -->
+                    <p class="text-center text-muted mt-3 mb-0">
+                        Don’t have an account?
+                        <a href="/signup">Sign up</a>
+                    </p>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="js/script.js"></script>

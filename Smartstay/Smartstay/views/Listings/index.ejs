@@ -1,0 +1,150 @@
+<% layout("layouts/boilerPlate.ejs") %>
+<%
+  const filterUrl = (cat, pr) => {
+    const p = {};
+    const useCat = (cat !== undefined && cat !== null) ? cat : (typeof category !== 'undefined' ? category : null);
+    if (useCat) p.category = useCat;
+    if (typeof search !== 'undefined' && search) p.search = search;
+    const usePr = (pr !== undefined) ? pr : (typeof priceRange !== 'undefined' ? priceRange : null);
+    if (usePr !== undefined && usePr !== null && usePr !== '') p.priceRange = usePr;
+    // reset paging when filters change
+    p.page = 1;
+    const qs = new URLSearchParams(p).toString();
+    return qs ? '/listings?' + qs : '/listings';
+  };
+
+  const pageUrl = (newPage) => {
+    const p = {};
+    if (typeof category !== 'undefined' && category) p.category = category;
+    if (typeof search !== 'undefined' && search) p.search = search;
+    if (typeof priceRange !== 'undefined' && priceRange !== null && priceRange !== undefined && priceRange !== '') p.priceRange = priceRange;
+    if (typeof limit !== 'undefined' && limit) p.limit = limit;
+    p.page = newPage;
+    const qs = new URLSearchParams(p).toString();
+    return qs ? '/listings?' + qs : '/listings';
+  };
+
+  const thumbUrl = (u) => {
+    if (!u) return u;
+    // Smaller thumbnails for listing grid
+    if (u.includes('loremflickr.com/800/600/')) {
+      return u.replace('loremflickr.com/800/600/', 'loremflickr.com/480/360/');
+    }
+    // Try to reduce Unsplash size if present
+    let out = u.replace(/([?&]w=)\d+/i, '$1480');
+    return out;
+  };
+%>
+    <body>
+        <!-- Category Filters -->
+        <div id="filters">
+            <div class="filter <%= category === 'Trending' ? 'selected' : '' %>"
+                onclick="window.location.href='<%= filterUrl('Trending') %>'">
+                <div><i class="fa-solid fa-fire"></i></div>
+                <p>Trending</p>
+            </div>
+            <div class="filter <%= category === 'Rooms' ? 'selected' : '' %>"
+                onclick="window.location.href='<%= filterUrl('Rooms') %>'">
+                <div><i class="fa-solid fa-bed"></i></div>
+                <p>Rooms</p>
+            </div>
+            <div class="filter <%= category === 'Iconic Cities' ? 'selected' : '' %>"
+                onclick="window.location.href='<%= filterUrl('Iconic Cities') %>'">
+                <div><i class="fa-solid fa-mountain-city"></i></div>
+                <p>Iconic Cities</p>
+            </div>
+            <div class="filter <%= category === 'Mountains' ? 'selected' : '' %>"
+                onclick="window.location.href='<%= filterUrl('Mountains') %>'">
+                <div><i class="fa-solid fa-mountain"></i></div>
+                <p>Mountains</p>
+            </div>
+            <div class="filter <%= category === 'Castles' ? 'selected' : '' %>"
+                onclick="window.location.href='<%= filterUrl('Castles') %>'">
+                <div><i class="fa-brands fa-fort-awesome"></i></div>
+                <p>Castles</p>
+            </div>
+            <div class="filter <%= category === 'Amazing Pools' ? 'selected' : '' %>"
+                onclick="window.location.href='<%= filterUrl('Amazing Pools') %>'">
+                <div><i class="fa-solid fa-person-swimming"></i></div>
+                <p>Amazing Pools</p>
+            </div>
+            <div class="filter <%= category === 'Camping' ? 'selected' : '' %>"
+                onclick="window.location.href='<%= filterUrl('Camping') %>'">
+                <div><i class="fa-solid fa-campground"></i></div>
+                <p>Camping</p>
+            </div>
+            <div class="filter <%= category === 'Farms' ? 'selected' : '' %>"
+                onclick="window.location.href='<%= filterUrl('Farms') %>'">
+                <div><i class="fa-solid fa-cow"></i></div>
+                <p>Farms</p>
+            </div>
+            <div class="filter <%= category === 'Arctic' ? 'selected' : '' %>"
+                onclick="window.location.href='<%= filterUrl('Arctic') %>'">
+                <div><i class="fa-regular fa-snowflake"></i></div>
+                <p>Arctic</p>
+            </div>
+            <div class="filter <%= category === 'Domes' ? 'selected' : '' %>"
+                onclick="window.location.href='<%= filterUrl('Domes') %>'">
+                <div><i class="fa-solid fa-igloo"></i></div>
+                <p>Domes</p>
+            </div>
+            <div class="filter <%= category === 'Boats' ? 'selected' : '' %>"
+                onclick="window.location.href='<%= filterUrl('Boats') %>'">
+                <div><i class="fa-solid fa-ship"></i></div>
+                <p>Boats</p>
+            </div>
+
+            <div class="tax-toggle">
+                <div class="form-check-reverse form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Display total after taxes</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-3">
+            <% for (let listing of allListings) { %>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <a href="/listings/<%= listing._id %>" class="text-decoration-none text-dark">
+                        <div class="card h-100">
+                            <img
+                              src="<%= thumbUrl(listing.image && listing.image.url) %>"
+                              class="card-img-top"
+                              alt="Listing image"
+                              loading="lazy"
+                              decoding="async"
+                              fetchpriority="low"
+                              width="480"
+                              height="360"
+                              onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?auto=format&fit=crop&w=480&q=60';"
+                            >
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <strong>
+                                        <%= listing.title %>
+                                    </strong><br>
+                                    <span>₹<%= listing.price.toLocaleString("en-IN") %>/night</span>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <% } %>
+        </div>
+
+        <% if (typeof totalPages !== 'undefined' && totalPages > 1) { %>
+          <nav class="mt-4" aria-label="Listings pagination">
+            <ul class="pagination justify-content-center">
+              <li class="page-item <%= page <= 1 ? 'disabled' : '' %>">
+                <a class="page-link" href="<%= pageUrl(Math.max(page - 1, 1)) %>" aria-label="Previous">Previous</a>
+              </li>
+              <li class="page-item disabled">
+                <span class="page-link">Page <%= page %> / <%= totalPages %></span>
+              </li>
+              <li class="page-item <%= page >= totalPages ? 'disabled' : '' %>">
+                <a class="page-link" href="<%= pageUrl(Math.min(page + 1, totalPages)) %>" aria-label="Next">Next</a>
+              </li>
+            </ul>
+          </nav>
+        <% } %>
+    </body>
